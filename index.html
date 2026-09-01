@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>TYCOON X</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="startScreen">
+  <div class="startBox">
+    <div class="logo">TYCOON<span>X</span></div>
+    <p class="sub">THE BUSINESS SURVIVAL SIMULATOR</p>
+
+    <input id="playerName" placeholder="CEO NAME">
+    <input id="companyName" placeholder="COMPANY NAME">
+
+    <select id="starterType">
+      <option value="tech">💻 Technology</option>
+      <option value="food">🍔 Restaurant</option>
+      <option value="auto">🚗 Automotive</option>
+      <option value="game">🎮 Gaming</option>
+      <option value="energy">⚡ Energy</option>
+      <option value="fashion">👕 Fashion</option>
+      <option value="space">🚀 Space Tech</option>
+    </select>
+
+    <button onclick="startGame()">CREATE CORPORATION</button>
+    <small>Every decision changes your future.</small>
+  </div>
+</div>
+
+
+<div id="game" class="hidden">
+
+<header>
+
+  <div class="brand">TYCOON<span>X</span></div>
+
+  <div class="clock">
+    <b id="time">08:00</b>
+    <small id="phase">DAY</small>
+  </div>
+
+  <div class="globalCash">
+    <small>TOTAL WEALTH</small>
+    <b id="totalWealth">$0</b>
+  </div>
+
+  <button class="gear" onclick="openSettings()">⚙</button>
+
+</header>
+
+
+<div class="ticker">
+  <span id="systemMessage">● AUTOMATIC OPERATIONS ACTIVE</span>
+  <span id="globalRisk">RISK 0%</span>
+</div>
+
+
+<div class="topStats">
+
+  <div>
+    <small>CEO</small>
+    <b id="ceo">---</b>
+  </div>
+
+  <div>
+    <small>DAY</small>
+    <b id="day">1</b>
+  </div>
+
+  <div>
+    <small>LEVEL</small>
+    <b id="level">1</b>
+  </div>
+
+  <div>
+    <small>XP</small>
+    <b id="xp">0 / 100</b>
+  </div>
+
+  <div>
+    <small>BUSINESSES</small>
+    <b id="businessCount">0</b>
+  </div>
+
+</div>
+
+
+<nav>
+  <button class="active" onclick="page('dashboard',this)">HQ</button>
+  <button onclick="page('businesses',this)">BUSINESSES</button>
+  <button onclick="page('market',this)">MARKET</button>
+  <button onclick="page('bank',this)">BANK</button>
+  <button onclick="page('rivals',this)">RIVALS</button>
+</nav>
+
+
+<main>
+
+<section id="dashboard" class="page active">
+
+  <div class="hero">
+
+    <div>
+      <small>COMMAND CENTER</small>
+      <h1 id="companyTitle">---</h1>
+      <p>Your corporate empire is operating automatically.</p>
+    </div>
+
+    <div class="levelBox">
+      <b id="rank">STARTUP</b>
+
+      <div class="xpBar">
+        <div id="xpFill"></div>
+      </div>
+
+      <small id="xpLabel">0 / 100 XP</small>
+    </div>
+
+  </div>
+
+
+  <div class="dashboardGrid">
+
+    <div class="card">
+
+      <h3>EMPIRE FINANCES</h3>
+
+      <div class="row">
+        <span>Empire Cash</span>
+        <b id="empireCash">$0</b>
+      </div>
+
+      <div class="row">
+        <span>Business Cash</span>
+        <b id="businessCash">$0</b>
+      </div>
+
+      <div class="row">
+        <span>Business Value</span>
+        <b id="investments">$0</b>
+      </div>
+
+      <div class="row">
+        <span>Total Debt</span>
+        <b id="debt">$0</b>
+      </div>
+
+      <div class="row">
+        <span>Net Worth</span>
+        <b id="netWorth">$0</b>
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>GLOBAL MARKET</h3>
+
+      <div class="bigNumber" id="marketIndex">100</div>
+
+      <div id="marketStatus">STABLE MARKET</div>
+
+      <div class="marketMini">
+        <span>Demand</span>
+        <b id="demand">100%</b>
+      </div>
+
+      <div class="marketMini">
+        <span>Economy</span>
+        <b id="economy">100%</b>
+      </div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>LIVE INTELLIGENCE</h3>
+      <div id="news">No recent events.</div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>EMPIRE RISK</h3>
+
+      <div class="riskCircle">
+        <span id="riskNumber">0%</span>
+      </div>
+
+      <p id="riskText">Your empire is stable.</p>
+
+    </div>
+
+  </div>
+
+
+  <div class="card full">
+
+    <div class="sectionHead">
+
+      <div>
+        <small>PORTFOLIO</small>
+        <h2>YOUR BUSINESSES</h2>
+      </div>
+
+      <button onclick="openBuyMenu()">+ BUY BUSINESS</button>
+
+    </div>
+
+    <div id="businessPreview"></div>
+
+  </div>
+
+</section>
+
+
+<section id="businesses" class="page">
+
+  <div class="sectionTitle">
+    <small>CORPORATE OPERATIONS</small>
+    <h1>BUSINESS PORTFOLIO</h1>
+  </div>
+
+  <div id="businessList"></div>
+
+</section>
+
+
+<section id="market" class="page">
+
+  <div class="sectionTitle">
+    <small>GLOBAL ECONOMY</small>
+    <h1>MARKET CONTROL</h1>
+  </div>
+
+  <div class="marketPanel">
+
+    <div class="marketNumber">
+      <b id="marketBig">100</b>
+      <small>MARKET INDEX</small>
+    </div>
+
+    <div id="marketGraph"></div>
+
+    <div class="threeStats">
+
+      <div>
+        <small>DEMAND</small>
+        <b id="marketDemand">100%</b>
+      </div>
+
+      <div>
+        <small>ECONOMY</small>
+        <b id="marketEconomy">100%</b>
+      </div>
+
+      <div>
+        <small>VOLATILITY</small>
+        <b id="marketVolatility">LOW</b>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="bank" class="page">
+
+  <div class="sectionTitle">
+    <small>FINANCIAL SYSTEM</small>
+    <h1>BANK & CAPITAL</h1>
+  </div>
+
+  <div class="bankGrid">
+
+    <div class="card">
+
+      <h3>BUSINESS FINANCE</h3>
+
+      <p>
+        Loans accelerate growth but create financial pressure.
+        Missed payments increase risk.
+      </p>
+
+      <div id="loanBusinessList"></div>
+
+    </div>
+
+
+    <div class="card">
+
+      <h3>EMPIRE DEBT</h3>
+
+      <div class="bigNumber" id="bankDebt">$0</div>
+
+      <p id="bankWarning">No major debt pressure.</p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section id="rivals" class="page">
+
+  <div class="sectionTitle">
+    <small>CORPORATE WAR</small>
+    <h1>COMPETITORS</h1>
+  </div>
+
+  <div id="rivalList"></div>
+
+</section>
+
+</main>
+
+</div>
+
+
+<div id="buyModal" class="modal hidden">
+
+  <div class="modalBox">
+
+    <button class="close" onclick="closeBuyMenu()">×</button>
+
+    <small>EXPANSION</small>
+    <h2>ACQUIRE BUSINESS</h2>
+
+    <div id="buyList"></div>
+
+  </div>
+
+</div>
+
+
+<div id="businessModal" class="modal hidden">
+
+  <div class="businessModalBox">
+
+    <button class="close" onclick="closeBusiness()">×</button>
+
+    <div id="businessDetail"></div>
+
+  </div>
+
+</div>
+
+
+<div id="settings" class="modal hidden">
+
+  <div class="modalBox">
+
+    <button class="close" onclick="closeSettings()">×</button>
+
+    <small>SYSTEM</small>
+
+    <h2>SETTINGS</h2>
+
+    <div class="setting">
+
+      <span>Simulation Speed</span>
+
+      <select id="speed">
+        <option value="1">NORMAL</option>
+        <option value="2">FAST</option>
+      </select>
+
+    </div>
+
+    <hr>
+
+    <h3 class="danger">DANGER ZONE</h3>
+
+    <p>
+      Resetting deletes your entire corporation,
+      businesses, cash, upgrades, loans and level.
+    </p>
+
+    <button class="reset" onclick="resetGame()">
+      ⚠ RESET ENTIRE ACCOUNT
+    </button>
+
+  </div>
+
+</div>
+
+
+<div id="toast"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
